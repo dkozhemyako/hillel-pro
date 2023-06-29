@@ -113,6 +113,15 @@ interface DisplayProcessorUser
     public function processDisplay(User $user): string;
 }
 
+class typeEXT implements FileProcessor
+{
+
+    public function FileMethod(File $file): string
+    {
+        return 'Визначення розширення';
+    }
+}
+
 class readCSV implements FileProcessor
 {
 
