@@ -84,7 +84,7 @@ class File
 
 interface FileProcessor
 {
-    public function FileMethod(File $file): string;
+    public function fileMethod(File $file): string;
 
 }
 
@@ -113,44 +113,44 @@ interface DisplayProcessorUser
     public function processDisplay(User $user): string;
 }
 
-class typeEXT implements FileProcessor
+class TypeEXT implements FileProcessor
 {
 
-    public function FileMethod(File $file): string
+    public function fileMethod(File $file): string
     {
         return 'Визначення розширення';
     }
 }
 
-class readCSV implements FileProcessor
+class ReadCSV implements FileProcessor
 {
 
-    public function FileMethod(File $file): string
+    public function fileMethod(File $file): string
     {
         return 'Читання запису файлів типу csv';
     }
 }
 
-class readTXT implements FileProcessor
+class ReadTXT implements FileProcessor
 {
 
-    public function FileMethod(File $file): string
+    public function fileMethod(File $file): string
     {
         return 'Читання запису файлів типу txt';
     }
 }
 
-class writeTXT implements FileProcessor
+class WriteTXT implements FileProcessor
 {
-    public function FileMethod(File $file): string
+    public function fileMethod(File $file): string
     {
         return 'Функціонал запису файлів типу txt';
     }
 }
 
-class writeCSV implements FileProcessor
+class WriteCSV implements FileProcessor
 {
-    public function FileMethod(File $file): string
+    public function fileMethod(File $file): string
     {
         return 'Функціонал запису файлів типу csv';
     }
@@ -165,7 +165,7 @@ class DisplayUser implements DisplayProcessorUser
     }
 }
 
-class procAutUser implements AuthenticateProcessor
+class ProcAutUser implements AuthenticateProcessor
 {
 
     public function processAuthenticate(User $user): string
@@ -193,7 +193,7 @@ class SaveData implements OrderProcessor
 }
 
 
-class processProduct implements OrderProcessor
+class ProcessProduct implements OrderProcessor
 {
     public function processOrder(Order $order): string
     {
@@ -201,7 +201,7 @@ class processProduct implements OrderProcessor
     }
 }
 
-class processService implements OrderProcessor
+class ProcessService implements OrderProcessor
 {
     public function processOrder(Order $order): string
     {
@@ -209,7 +209,7 @@ class processService implements OrderProcessor
     }
 }
 
-class processDelivery implements OrderProcessor
+class ProcessDelivery implements OrderProcessor
 {
     public function processOrder(Order $order): string
     {
@@ -243,7 +243,7 @@ class DisplayOrder implements DisplayProcessorOrder
 
 class OrderNew
 {
-    public function makeOrder(OrderProcessor $order, ReportProcessor $report, $objOrder): string
+    public function makeOrder(OrderProcessor $order, ReportProcessor $report, Order $objOrder): string
 
     {
         return $order->processOrder($objOrder) . ', ' . $report->processReport($objOrder);
@@ -252,7 +252,7 @@ class OrderNew
 
 class DisplayNew
 {
-    public function makeDisplay(DisplayProcessorOrder $display, $objOrder): string
+    public function makeDisplay(DisplayProcessorOrder $display, Order $objOrder): string
 
     {
         return $display->processDisplay($objOrder) . ' - ' . $objOrder->getId();
