@@ -1,62 +1,80 @@
 <?php
 
-abstract class DBManager
+interface DBManager
 {
     //робота с БД
 }
 
-class UserRepository
+interface EmailProcessor
+{
+    public function sendEmail(UserRepository $useData): bool;
+}
+
+interface SmsProcessor
+{
+    public function sendSms(UserRepository $useData): bool;
+}
+
+abstract class UserRepository
 {
     public function __construct
     (
-        protected DBManager $db
+        private DBManager $db,
     )
     {
     }
+
+    public function reg(): bool
+    {
+        return true;
+    }
 }
 
-interface RegisterProcessor
+
+class EmailService implements EmailProcessor
 {
-    public function register(UserRepository $useData): bool;
+    public function sendEmail(UserRepository $useData): bool
+    {
+        // Відправка ласкаво просимо повідомлення електронною поштою
+        return true;
+    }
 }
 
-interface SenderProcessor
+class SMSService implements SmsProcessor
 {
-    public function sendMsg(UserRepository $useData): bool;
+
+    public function sendSms(UserRepository $useData): bool
+    {
+        // Відправка повідомлення на мобільний телефон
+        return true;
+    }
 }
 
-class RegisterUser implements RegisterProcessor
+class Registration extends UserRepository
 {
+    public function __construct(DBManager $db)
+    {
+        parent::__construct($db);
+    }
 
-    public function register(UserRepository $useData): bool
+    public function reg(): bool
     {
         // Реєстрація користувача в базі даних
         return true;
     }
 }
 
-class EmailService implements SenderProcessor
+class NewUser
 {
-
-    public function sendMsg(UserRepository $useData): bool
+    public function __construct
+    (
+        private UserRepository $user,
+        private EmailProcessor $email,
+        private SmsProcessor   $sms,
+    )
     {
-        // Відправка ласкаво просимо повідомлення електронною поштою
-
-        return true;
     }
+
 }
-
-class SMSService implements SenderProcessor
-{
-
-    public function sendMsg(UserRepository $useData): bool
-    {
-        // Відправка повідомлення на мобільний телефон
-
-        return true;
-    }
-}
-
-
 
 
